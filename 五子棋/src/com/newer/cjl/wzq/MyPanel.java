@@ -14,12 +14,17 @@ import javax.swing.JPanel;
 public class MyPanel extends JPanel {
 
 	/**
-	 * 重写JPanel的方法 paint方法的作用是将控件本身绘制在屏幕上 当面板大小发生改变需要重新绘制在屏幕上的时候会自动调用
+	 * 重写JPanel的方法 
+	 * paint方法的作用是将控件本身绘制在屏幕上 
+	 * 当面板大小发生改变需要重新绘制在屏幕上的时候会自动调用
 	 */
 	public void paint(Graphics g) {
 		// super表示父类对象，调用父类的paint方法来正确的绘制控件本身
 		super.paint(g);
+		//绘制棋盘
 		drawQipan(g);
+		//绘制棋子
+		drawChess(g,WZQListener.chesses);
 	}
 
 	/**
@@ -56,5 +61,34 @@ public class MyPanel extends JPanel {
 		g.fillOval(20 + 30 * 3 - 3, 20 + 30 * 11 - 3, 6, 6);
 		g.fillOval(20 + 30 * 11 - 3, 20 + 30 * 11 - 3, 6, 6);
 	}
+	
+	//将二维数组中的棋子绘制在棋盘上
+	private void drawChess(Graphics g,int[][] chesses){
+		for(int i=0;i<chesses.length;i++){
+			for(int j=0;j<chesses[i].length;j++){
+				int num = chesses[i][j];
+				if(num!=0){//如果有棋子，就绘制
+					//根据二维数组的下标计算交叉点的坐标
+					int x = 20+30*j;
+					int y = 20+30*i;
+					if(num==-1){
+						g.setColor(Color.BLACK);
+					}else{
+						g.setColor(Color.WHITE);
+					}
+					g.fillOval(x-15, y-15, 30, 30);
+				}
+			}
+		}
+		
+		
+	}
 
 }
+
+
+
+
+
+
+
